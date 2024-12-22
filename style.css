@@ -1,0 +1,153 @@
+@property --angle {
+    syntax: '<angle>';
+    inherits: true;
+    initial-value: 0deg;
+  }
+  
+  @property --z {
+    syntax: '<integer>';
+    inherits: true;
+    initial-value: 0;
+  }
+  
+  @keyframes revolve {
+    from {
+      --angle: 0deg;
+      --z: -1;
+    }
+    to {
+      --angle: 360deg;
+      --z: 0;
+    }
+  }
+  
+  html {
+    overflow: hidden;
+  }
+  
+  body {
+    display: grid;
+    place-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #141733;
+    overflow: clip;
+  }
+  
+  .sun, .earth, .moon, .mars {
+    grid-area: 1 / 1;
+    padding: 10px;
+    border: 4px dashed #f4ead5;
+    border-radius: 50%;
+  }
+  
+ .mars {
+    --x-amplitude: 190.3px;
+    --y-amplitude: 160.1px;
+    --x: calc(cos(var(--angle)) * var(--x-amplitude));
+    --y: calc(sin(var(--angle)) * var(--y-amplitude));
+    transform:
+      rotate(var(--rotation))
+      translate(var(--x), var(--y))
+      rotate(calc(var(--rotation) * -1));
+    z-index: calc(var(--z)); /* calc() is for Safari */
+    animation: revolve 171.75s linear infinite;
+  }
+
+    .earth{
+    --x-amplitude: 149.6px;
+    --y-amplitude: 152.1px;
+    --x: calc(cos(var(--angle)) * var(--x-amplitude));
+    --y: calc(sin(var(--angle)) * var(--y-amplitude));
+    transform:
+      rotate(var(--rotation))
+      translate(var(--x), var(--y))
+      rotate(calc(var(--rotation) * -1));
+    z-index: calc(var(--z)); /* calc() is for Safari */
+    animation: revolve 91.25s linear infinite;
+  }
+
+  .moon{
+    --x-amplitude: 10px;
+    --y-amplitude: 3px;
+    --x: calc(cos(var(--angle)) * var(--x-amplitude));
+    --y: calc(sin(var(--angle)) * var(--y-amplitude));
+    transform:
+      rotate(var(--rotation))
+      translate(var(--x), var(--y))
+      rotate(calc(var(--rotation) * -1));
+    z-index: calc(var(--z)); /* calc() is for Safari */
+    animation: revolve 0.25s linear infinite;
+  }
+  
+  
+  .earth {
+    position: relative;
+    z-index: 1;
+    top: 0em;
+    left: 0em;
+    width: 1.5em;
+    height: 1.5em;
+    background-color: rgb(9, 149, 192);
+    --rotation: 60deg;
+    animation-delay: 0s;
+  }
+  
+  .moon {
+    position: absolute;
+    top: 0em;
+    left: 0em;
+    width: 0.2em;
+    height: 0.2em;
+    background-color: rgba(234, 228, 228, 0.986);
+    --rotation: 0deg;
+    animation-delay: 0s;
+  }
+  
+  .mars {
+    position: relative;
+    top: 0em;
+    left: 0em;
+    width: 1em;
+    height: 1em;
+    background-color: rgb(255, 85, 0);
+    --rotation: 120deg;
+    animation-delay: 0s;
+  }
+  
+  .sun {
+    position: relative;
+    top: 0em;
+    left: 0em;
+    width: 10em;
+    height: 10em;
+    background-color: rgb(251, 255, 0);
+    border-radius: 50%;
+    box-shadow: 0 0 3em white;
+  }
+  
+  .star{
+    position: absolute;
+    background-color: white;
+    border-radius: 50%;
+}
+
+.planet-name{
+    display: block;
+    position: relative;
+    color: rgb(26, 181, 21);
+    font-size: 2em;
+}
+
+/* .sun:hover::after,
+.earth:hover::after,
+.moon:hover::after,
+.mars:hover::after{
+    container: attr(data-name);
+    position: relative;
+    color: white;
+    font-size: 1.2em;
+    top: -1.5em;
+    left: 50%;
+    transform: translateX(-50%);
+} */
